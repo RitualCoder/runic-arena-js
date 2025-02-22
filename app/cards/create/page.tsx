@@ -44,7 +44,7 @@ const CreateCardPage: React.FC = () => {
     title: "Runic",
     type: "NORMAL",
     rarity: "COMMON",
-    pv: 10,
+    pv: "10",
     imageUrl: undefined,
     description: "Ceci est la description de la carte",
     attacks: [],
@@ -71,8 +71,8 @@ const CreateCardPage: React.FC = () => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
-    const newValue = type === "number" ? Number(value) : value;
-    updateField(name as keyof Card, newValue);
+
+    updateField(name as keyof Card, value);
 
     // Réinitialiser l'erreur du champ modifié
     setFieldErrors((prev) => ({ ...prev, [name]: "" }));
@@ -271,6 +271,7 @@ const CreateCardPage: React.FC = () => {
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-4 w-full px-10 max-w-[800px]"
+            noValidate
           >
             {/* Nom de la carte */}
             <div>
@@ -348,10 +349,10 @@ const CreateCardPage: React.FC = () => {
                 HP
               </label>
               <input
-                id="hp"
-                name="hp"
+                id="pv"
+                name="pv"
                 type="number"
-                value={card.pv}
+                value={card.pv === "" ? "" : card.pv}
                 min={0}
                 max={990}
                 step={10}

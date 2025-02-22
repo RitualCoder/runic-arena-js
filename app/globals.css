@@ -151,7 +151,7 @@
 
 .glare {
   will-change: transform, opacity;
-  
+
   opacity: var(--op);
   transform: translateZ(1px);
 
@@ -327,15 +327,13 @@
   background-position: center, 0% var(--posy), var(--posx) var(--posy),
     var(--posx) var(--posy);
 
-  filter: brightness(0.8) contrast(2.95) saturate(0.5);
+  filter: brightness(0.8) contrast(1) saturate(0.5);
 
   mix-blend-mode: color-dodge;
 }
 
 .rare-holo::after {
   content: "";
-
-  will-change: transform, opacity;
 
   position: absolute;
   top: 0;
@@ -376,15 +374,13 @@
   background-position: center, var(--posx) var(--posy), center;
   background-blend-mode: color-burn, darken;
 
-  filter: brightness(calc((var(--hyp) * 0.4) + 0.7)) contrast(3) saturate(0.66);
+  filter: brightness(calc((var(--hyp) * 0.4) + 0.7)) contrast(1) saturate(0.66);
 
   mix-blend-mode: color-dodge;
 }
 
 .gold::after {
   content: "";
-
-  will-change: transform, opacity;
 
   position: absolute;
   top: 0;

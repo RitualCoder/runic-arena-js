@@ -7,14 +7,12 @@ import GoldCard from "@/components/Cards/GoldCard";
 import HolographicCard from "@/components/Cards/HolographicCard";
 import VCard from "@/components/Cards/VCard";
 import ConfirmationModal from "@/components/Modals/DeleteCard";
-import NavBar from "@/components/NavBar";
 import { ApiCards, getCardsByUser } from "@/data/cards";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { deleteImage } from "@/lib/storage/upload";
-import { set } from "zod";
 import Loading from "@/components/Templates/Loading";
 import Timeout from "@/components/Templates/Timeout";
 
@@ -48,7 +46,7 @@ const CardsPage: React.FC = () => {
     const timeout = setTimeout(() => {
       setTimeoutReached(true);
       setLoading(false);
-    }, 1500);
+    }, 15000);
 
     const fetchCards = async () => {
       const data = await getCardsByUser();
@@ -102,12 +100,12 @@ const CardsPage: React.FC = () => {
       <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
 
       {/* Contenu principal */}
-      <div className="flex items-center w-full h-full p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px]">
+      <div className="flex items-center w-full h-full p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px] min-w-[400px]">
         <div className="flex flex-wrap pt-8 justify-center gap-16 w-full h-full border-[10px] rounded-[30px] border-primary bg-white overflow-y-auto no-scrollbar">
           {cards.map((card) => (
             <div
               key={card.id}
-              className="card-container p-1 block w-[350px] h-[550px] mb-5"
+              className="card-container p-1 block w-[350px] h-[550px] mb-5 scale-75 md:scale-100"
             >
               {/* Inclusion dynamique des cartes selon leur rareté */}
               {card.rarity === "COMMON" && <BasicCard card={card} />}

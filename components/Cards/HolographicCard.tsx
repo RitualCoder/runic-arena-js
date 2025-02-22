@@ -75,7 +75,7 @@ const HolographicCard: React.FC<HolographicCardProps> = ({
           {card.attacks.map((attack, index) => (
             <div key={index} className="flex flex-col w-full">
               <div className="flex justify-between w-full align-baseline">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-6">
                   <div
                     className={`energies-${
                       index + 1
@@ -160,7 +160,7 @@ const HolographicCard: React.FC<HolographicCardProps> = ({
         {/* Effets holographiques */}
         <div className="effects absolute top-0 left-0 w-full h-full">
           <div className="shine basic-holo z-20 absolute h-full w-full top-0 bg-transparent"></div>
-          <div className="glare absolute w-full h-full z-30"></div>
+          <div className="absolute w-full h-full z-30"></div>
         </div>
       </div>
     </div>

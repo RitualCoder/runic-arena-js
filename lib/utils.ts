@@ -1,3 +1,5 @@
+import { Card } from "@/types/card";
+
 // Email validation regex pattern (simple version)
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -25,3 +27,29 @@ export function capitalizeFirstLetter(val: string) {
   const value = String(val).toLowerCase();
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
+
+export const showcaseCard: Card = {
+  id: "showcase-2",
+  title: "Pikachu",
+  type: "ELECTRIC",
+  rarity: "V",
+  pv: "90",
+  imageUrl: "/assets/backgrounds/pika.jpg",
+  description:
+    "Un Pokémon électrisant connu pour ses puissantes attaques de foudre.",
+  attacks: [
+    {
+      name: "Éclair",
+      damage: 50,
+      description: "Inflige 50 points de dégâts à l’adversaire.",
+      cost: 2,
+    },
+    {
+      name: "Tonnerre",
+      damage: 100,
+      description:
+        "Inflige 100 points de dégâts et peut paralyser l’adversaire.",
+      cost: 4,
+    },
+  ],
+};

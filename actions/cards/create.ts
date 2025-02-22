@@ -3,6 +3,7 @@
 import { Card } from "@/types/card";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { parse } from "path";
 
 export const createCard = async (values: Card) => {
   const session = await auth();
@@ -23,7 +24,7 @@ export const createCard = async (values: Card) => {
     data: {
       userId,
       title,
-      pv,
+      pv: parseInt(pv),
       description,
       rarity,
       type,

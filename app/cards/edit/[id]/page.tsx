@@ -49,7 +49,7 @@ const EditCardPage: React.FC = () => {
     title: "Runic",
     type: "NORMAL",
     rarity: "COMMON",
-    pv: 10,
+    pv: "10",
     imageUrl: undefined,
     description: "Ceci est la description de la carte",
     attacks: [],
@@ -69,7 +69,7 @@ const EditCardPage: React.FC = () => {
           title: card.title,
           type: card.type,
           rarity: card.rarity,
-          pv: card.pv,
+          pv: card.pv.toString(),
           imageUrl: card.imageUrl,
           description: card.description,
           attacks: card.attacks,
@@ -101,8 +101,8 @@ const EditCardPage: React.FC = () => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
-    const newValue = type === "number" ? Number(value) : value;
-    updateField(name as keyof Card, newValue);
+
+    updateField(name as keyof Card, value);
 
     // Réinitialiser l'erreur du champ modifié
     setFieldErrors((prev) => ({ ...prev, [name]: "" }));
@@ -111,16 +111,9 @@ const EditCardPage: React.FC = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : undefined;
     if (file) {
-      if (file.size > 1024 * 1024) {
-        setFieldErrors((prev) => ({
-          ...prev,
-          imageUrl: "L'image ne doit pas dépasser 1 Mo.",
-        }));
-      } else {
-        setFieldErrors((prev) => ({ ...prev, imageUrl: "" }));
-        setFile(file);
-        updateField("imageUrl", URL.createObjectURL(file));
-      }
+      setFieldErrors((prev) => ({ ...prev, imageUrl: "" }));
+      setFile(file);
+      updateField("imageUrl", URL.createObjectURL(file));
     }
   };
 
@@ -197,10 +190,6 @@ const EditCardPage: React.FC = () => {
       errors.description = "La description est obligatoire.";
       isValid = false;
     }
-    if (file && file.size > 1024 * 1024) {
-      errors.imageUrl = "L'image ne doit pas dépasser 1 Mo.";
-      isValid = false;
-    }
 
     // Validation des attaques (s'il y en a)
     errors.attacks = card.attacks.map((attack) => {
@@ -233,7 +222,10 @@ const EditCardPage: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       // Si un fichier est sélectionné, on l'upload d'abord
@@ -394,8 +386,8 @@ const EditCardPage: React.FC = () => {
                 HP
               </label>
               <input
-                id="hp"
-                name="hp"
+                id="pv"
+                name="pv"
                 type="number"
                 value={card.pv}
                 min={0}

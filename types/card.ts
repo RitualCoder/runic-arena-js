@@ -24,7 +24,7 @@ export interface Card {
   title: string;
   type: CardType;
   rarity: Rarity;
-  pv: number;
+  pv: string;
   imageUrl?: string;
   description: string;
   attacks: Attack[];

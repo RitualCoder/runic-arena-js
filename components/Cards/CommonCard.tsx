@@ -69,7 +69,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ card, display = true }) => {
           {card.attacks.map((attack, index) => (
             <div key={index} className="flex flex-col w-full">
               <div className="flex justify-between w-full align-baseline">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-6">
                   <div className={`flex w-[60px] items-center gap-[2px]`}>
                     {attack.cost > 0 &&
                       Array.from({ length: attack.cost }, (_, i) => (

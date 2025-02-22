@@ -26,7 +26,7 @@ export const updateCard = async (values: Card) => {
     data: {
       userId,
       title,
-      pv,
+      pv: parseInt(pv),
       description,
       rarity,
       type,
