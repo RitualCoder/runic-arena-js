@@ -51,9 +51,6 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="h-screen w-full overflow-hidden relative">
-      {/* Inclusion du Navbar */}
-      <Navbar hideUserActions />
-
       {/* Carré jaune (fond) */}
       <div className="absolute -top-[30%] left-[50%] h-[150%] w-[90%] bg-primary -rotate-12 z-0"></div>
 

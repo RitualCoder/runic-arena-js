@@ -54,9 +54,6 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div className="h-screen w-full overflow-hidden relative">
-      {/* Navbar */}
-      <Navbar hideUserActions />
-
       {/* Carré jaune (fond) */}
       <div className="absolute -top-[30%] right-[50%] h-[150%] w-[90%] bg-primary rotate-12"></div>
 
