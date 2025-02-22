@@ -16,8 +16,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <SessionProvider>
-        <body className="min-w-[430px]">
-          {/* Navbar */}
+        <body className="min-w-[300px]">
           <NavBar />
           {children}
         </body>

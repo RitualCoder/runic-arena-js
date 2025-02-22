@@ -50,7 +50,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-full overflow-hidden relative">
+    <div className="h-dvh w-full relative overflow-hidden">
       {/* Carré jaune (fond) */}
       <div className="absolute -top-[30%] left-[50%] h-[150%] w-[90%] bg-primary -rotate-12 z-0"></div>
 
@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
       <div className="absolute inset-0 flex items-center justify-center z-10 px-4 sm:px-6 md:px-8">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white border-[10px] border-primary rounded-[30px] py-8 px-10 sm:w-full max-w-md w-full relative z-10"
+          className="bg-white border-[10px] border-primary rounded-[30px] py-8 px-6 md:px-10 max-w-sm w-full relative z-10"
           noValidate
         >
           {/* Points blancs (fond) */}

@@ -69,7 +69,7 @@ const RegisterPage: React.FC = () => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          className="bg-white border-[10px] border-primary rounded-[30px] py-8 px-10 sm:w-full max-w-md w-full relative z-10"
+          className="bg-white border-[10px] border-primary rounded-[30px] py-8 px-6 md:px-10 max-w-sm w-full relative z-10"
         >
           {/* Points blancs (fond) */}
           <img

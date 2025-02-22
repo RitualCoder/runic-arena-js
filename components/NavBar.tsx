@@ -61,7 +61,7 @@ const MobileNavbar: React.FC = () => {
 
   return (
     <div
-      className={`min-w-[430px] md:hidden absolute top-0 left-0 w-full z-50 ${
+      className={`md:hidden absolute top-0 left-0 w-full z-50 ${
         isOpen ? "bg-white" : ""
       }`}
     >
