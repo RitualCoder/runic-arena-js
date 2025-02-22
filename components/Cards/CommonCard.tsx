@@ -48,7 +48,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ card, display = true }) => {
         <p className="absolute font-GillSans font-bold z-20 top-[7px] right-[46px] text-[8px] tracking-tighter">
           PV
           <span className="card-hp text-[28px] font-GillSans font-sem tracking-tighter">
-            {card.pv}
+            {card.pv.toString()}
           </span>
         </p>
 

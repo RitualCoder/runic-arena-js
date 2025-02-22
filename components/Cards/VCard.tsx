@@ -53,7 +53,7 @@ const VCard: React.FC<VCardProps> = ({ card, display = true }) => {
         <p className="absolute font-GillSans font-bold z-20 top-[7px] right-[48px] text-[8px] tracking-tighter text-white">
           PV
           <span className="text-[28px] font-GillSans font-sem tracking-tighter">
-            {card.pv}
+            {card.pv.toString()}
           </span>
         </p>
 

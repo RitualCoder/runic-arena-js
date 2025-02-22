@@ -51,7 +51,7 @@ const GoldCard: React.FC<GoldCardProps> = ({ card, display = true }) => {
         <p className="absolute font-GillSans font-bold z-20 top-[12px] right-[45px] text-[8px] tracking-tighter text-black text-stroke">
           PV
           <span className="card-hp text-[23px] font-GillSans font-sem tracking-tighter">
-            {card.pv}
+            {card.pv.toString()}
           </span>
         </p>
 
