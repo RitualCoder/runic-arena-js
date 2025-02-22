@@ -4,7 +4,6 @@ import * as z from "zod";
 import { getUserByEmail } from "@/data/user";
 import { emailRegex } from "@/lib/utils";
 import { generatePasswordResetToken } from "@/lib/tokens";
-import { sendPasswordResetEmail } from "@/lib/mail";
 import { ResetPasswordSchema } from "@/schemas/auth";
 
 export const reset = async (values: z.infer<typeof ResetPasswordSchema>) => {
@@ -33,11 +32,6 @@ export const reset = async (values: z.infer<typeof ResetPasswordSchema>) => {
   }
 
   const passwordResetToken = await generatePasswordResetToken(email);
-
-  await sendPasswordResetEmail(
-    passwordResetToken.email,
-    passwordResetToken.token
-  );
 
   return { success: "Email de réinitialisation envoyé !" };
 };

@@ -20,14 +20,9 @@ const passwordValidation = isDevelopment
 // Schéma pour l'inscription
 export const RegisterSchema = z
   .object({
-    firstname: z
+    name: z
       .string()
       .nonempty("Le prénom est requis")
-      .min(3, "3 caractères minimum")
-      .max(15, "15 caractères maximum"),
-    lastname: z
-      .string()
-      .nonempty("Le nom est requis")
       .min(3, "3 caractères minimum")
       .max(15, "15 caractères maximum"),
     email: z

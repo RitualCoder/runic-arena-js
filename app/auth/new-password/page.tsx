@@ -39,8 +39,6 @@ const NewPasswordPage: React.FC = () => {
 
     const res = await newPassword(data, token);
 
-    console.log(res);
-
     if (res) {
       setMessage(res.error ?? res.success ?? null);
       setSeverity(res.error ? "error" : "success");

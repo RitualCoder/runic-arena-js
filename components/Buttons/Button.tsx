@@ -12,34 +12,41 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   loading = false,
   disabled,
-  className,
+  className = "",
   ...props
 }) => {
-  // Classes de taille
+  // Classe de base avec le style général du bouton
+  let baseClasses = "cta-button";
+
+  // Gestion des tailles
   const sizeClasses = {
-    small: "px-3 py-1 text-sm",
-    medium: "px-4 py-2 text-base",
-    large: "px-6 py-3 text-lg",
+    small: "py-2 px-4",
+    medium: "py-3 px-6",
+    large: "py-4 px-8",
   };
 
-  // Classes de variantes
-  const variantClasses = {
-    primary: "bg-blue-500 text-white hover:bg-blue-600",
-    secondary: "bg-gray-500 text-white hover:bg-gray-600",
-    danger: "bg-red-500 text-white hover:bg-red-600",
-  };
+  baseClasses += ` ${sizeClasses[size]}`;
+
+  // Application de la variante selon la prop variant
+  if (variant === "secondary") {
+    baseClasses += " cta-button--add";
+  } else if (variant === "danger") {
+    baseClasses += " cta-button--delete";
+  }
+
+  // Si le bouton est en loading, on ajoute la classe correspondante
+  if (loading) {
+    baseClasses += " cta-button--loading";
+  }
+
+  // Ajout de classes additionnelles si fournies en props
+  if (className) {
+    baseClasses += ` ${className}`;
+  }
 
   return (
-    <button
-      className={`flex items-center justify-center rounded-lg font-medium transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
-      disabled={loading || disabled}
-      {...props}
-    >
-      {loading ? (
-        <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
-      ) : (
-        children
-      )}
+    <button className={baseClasses} disabled={loading || disabled} {...props}>
+      {children}
     </button>
   );
 };

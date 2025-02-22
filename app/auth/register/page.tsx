@@ -3,12 +3,14 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { register } from "@/actions/auth/register";
+import { register as registerAction } from "@/actions/auth/register";
 import { RegisterSchema } from "@/schemas/auth";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import AlertMessage from "@/components/AlertMessage";
+import Navbar from "@/components/NavBar";
+import Button from "@/components/Buttons/Button";
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
@@ -25,8 +27,7 @@ const RegisterPage: React.FC = () => {
   } = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      firstname: "",
-      lastname: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -37,7 +38,7 @@ const RegisterPage: React.FC = () => {
     setLoading(true);
     setMessage(null);
 
-    const res = await register(data);
+    const res = await registerAction(data);
 
     if (res?.error) {
       setMessage(res.error);
@@ -45,81 +46,80 @@ const RegisterPage: React.FC = () => {
     } else {
       setMessage(res?.success || "Compte créé avec succès !");
       setSeverity("success");
-      if (process.env.NODE_ENV === "development") {
-        setTimeout(() => router.push("/"), 2000);
-      }
+      setTimeout(() => router.push("/auth/login"), 2000);
     }
 
     setLoading(false);
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-semibold text-center mb-4">
-          Créer un compte
-        </h1>
+    <div className="h-screen w-full overflow-hidden relative">
+      {/* Navbar */}
+      <Navbar hideUserActions />
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Prénom */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Prénom
+      {/* Carré jaune (fond) */}
+      <div className="absolute -top-[30%] right-[50%] h-[150%] w-[90%] bg-primary rotate-12"></div>
+
+      {/* Rond jaune (fond) */}
+      <img
+        className="absolute -bottom-[40px] -right-[40px] h-[160px]"
+        src="/assets/forms/yellowRound.png"
+        alt="yellow round"
+      />
+
+      {/* Formulaire */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 px-4 sm:px-6 md:px-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          className="bg-white border-[10px] border-primary rounded-[30px] py-8 px-10 sm:w-full max-w-md w-full relative z-10"
+        >
+          {/* Points blancs (fond) */}
+          <img
+            className="absolute -top-[30px] -left-[105px] h-[100px] z-[-1]"
+            src="/assets/forms/whiteDots.png"
+            alt="white dots"
+          />
+
+          <h1 className="font-medium mb-8 text-center text-xl sm:text-3xl">
+            Créer un compte
+          </h1>
+
+          {/* Champ Nom */}
+          <div className="mb-4">
+            <label
+              htmlFor="lastname"
+              className="block text-gray-800 font-bold mb-1 text-sm"
+            >
+              Pseudo
             </label>
             <Controller
-              name="firstname"
+              name="name"
               control={control}
               render={({ field }) => (
                 <input
                   type="text"
+                  id="lastname"
                   {...field}
-                  className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.firstname
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                  className={`w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 ease-in-out ${
+                    errors.name ? "border-red-500 focus:ring-red-500" : ""
                   }`}
-                  aria-invalid={errors.firstname ? "true" : "false"}
+                  aria-invalid={errors.name ? "true" : "false"}
+                  required
                 />
               )}
             />
-            {errors.firstname && (
-              <p className="mt-1 text-sm text-red-600">
-                {errors.firstname.message}
-              </p>
+            {errors.name && (
+              <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
             )}
           </div>
 
-          {/* Nom */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Nom
-            </label>
-            <Controller
-              name="lastname"
-              control={control}
-              render={({ field }) => (
-                <input
-                  type="text"
-                  {...field}
-                  className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.lastname
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
-                  }`}
-                  aria-invalid={errors.lastname ? "true" : "false"}
-                />
-              )}
-            />
-            {errors.lastname && (
-              <p className="mt-1 text-sm text-red-600">
-                {errors.lastname.message}
-              </p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+          {/* Champ Email */}
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-gray-800 font-bold mb-1 text-sm"
+            >
               Email
             </label>
             <Controller
@@ -128,13 +128,13 @@ const RegisterPage: React.FC = () => {
               render={({ field }) => (
                 <input
                   type="email"
+                  id="email"
                   {...field}
-                  className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.email
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                  className={`w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 ease-in-out ${
+                    errors.email ? "border-red-500 focus:ring-red-500" : ""
                   }`}
                   aria-invalid={errors.email ? "true" : "false"}
+                  required
                 />
               )}
             />
@@ -145,9 +145,12 @@ const RegisterPage: React.FC = () => {
             )}
           </div>
 
-          {/* Mot de passe */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+          {/* Champ Mot de passe */}
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-gray-800 font-bold mb-1 text-sm"
+            >
               Mot de passe
             </label>
             <Controller
@@ -156,13 +159,13 @@ const RegisterPage: React.FC = () => {
               render={({ field }) => (
                 <input
                   type="password"
+                  id="password"
                   {...field}
-                  className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                    errors.password
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                  className={`w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 ease-in-out ${
+                    errors.password ? "border-red-500 focus:ring-red-500" : ""
                   }`}
                   aria-invalid={errors.password ? "true" : "false"}
+                  required
                 />
               )}
             />
@@ -173,9 +176,12 @@ const RegisterPage: React.FC = () => {
             )}
           </div>
 
-          {/* Confirmation du mot de passe */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+          {/* Champ Confirmation du mot de passe */}
+          <div className="mb-4">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-gray-800 font-bold mb-1 text-sm"
+            >
               Confirmer le mot de passe
             </label>
             <Controller
@@ -184,13 +190,15 @@ const RegisterPage: React.FC = () => {
               render={({ field }) => (
                 <input
                   type="password"
+                  id="confirmPassword"
                   {...field}
-                  className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 ${
+                  className={`w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-primary focus:outline-none transition duration-200 ease-in-out ${
                     errors.confirmPassword
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-blue-500"
+                      : ""
                   }`}
                   aria-invalid={errors.confirmPassword ? "true" : "false"}
+                  required
                 />
               )}
             />
@@ -201,26 +209,30 @@ const RegisterPage: React.FC = () => {
             )}
           </div>
 
-          {/* Message de succès ou d'erreur */}
-          {message && <AlertMessage severity={severity} message={message} />}
+          <div className="my-2">
+            {/* Message de succès ou d'erreur */}
+            {message && <AlertMessage severity={severity} message={message} />}
+          </div>
 
           {/* Bouton de soumission */}
-          <button
+          <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition disabled:bg-gray-400"
+            loading={loading}
+            variant="primary"
+            className="w-full mt-4"
           >
             {loading ? "Création du compte..." : "Créer un compte"}
-          </button>
-        </form>
+          </Button>
 
-        {/* Lien vers connexion */}
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Déjà un compte ?
-          <Link href="/auth/login" className="text-blue-500 hover:underline">
-            Se connecter
-          </Link>
-        </p>
+          {/* Lien vers la page de connexion */}
+          <p className="mt-4 text-center text-sm text-gray-600">
+            Déjà un compte ?{" "}
+            <Link href="/auth/login" className="text-blue-500 hover:underline">
+              Se connecter
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   );

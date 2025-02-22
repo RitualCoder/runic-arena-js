@@ -4,11 +4,8 @@ import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
 import { getUserByEmail } from "../../data/user";
 import { emailRegex } from "../../lib/utils";
-import { generateVerificationToken } from "../../lib/tokens";
-import { sendVerificationEmail } from "../../lib/mail";
 import { RegisterSchema } from "@/schemas/auth";
 import * as z from "zod";
-import { signIn } from "@/auth";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validateValues = RegisterSchema.safeParse(values);
@@ -19,7 +16,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     };
   }
 
-  const { firstname, lastname, email, password, confirmPassword } = values;
+  const { name, email, password, confirmPassword } = values;
 
   if (!emailRegex.test(email)) {
     return {
@@ -47,40 +44,14 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     };
   }
 
-  // Bypass email verification
-  // const isDevelopment = process.env.NODE_ENV === "development";
-  const isDevelopment = false;
-
-  await prisma.user.create({
+  const data = await prisma.user.create({
     data: {
-      firstname,
-      lastname,
+      name,
       email,
       password: hashedPassword,
-      emailVerified: isDevelopment ? new Date() : null,
+      emailVerified: new Date(),
     },
   });
 
-  if (isDevelopment) {
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: true,
-      callbackUrl: "/",
-    });
-
-    return { success: "Utilisateur créé !" };
-  }
-
-  const verificationToken = await generateVerificationToken(email);
-  const emailResponse = await sendVerificationEmail(
-    verificationToken.email,
-    verificationToken.token
-  );
-
-  if (emailResponse.error) {
-    return { error: "Erreur lors de l'envoi de l'email" };
-  }
-
-  return { success: "Email de confirmation envoyé !" };
+  return { success: "Utilisateur créé !", data };
 };

@@ -5,7 +5,6 @@ import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { generateVerificationToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
-import { sendVerificationEmail } from "@/lib/mail";
 import { LoginSchema } from "@/schemas/auth";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
@@ -24,21 +23,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   if (!existingUser || !existingUser.password || !existingUser.email) {
     return {
       error: "Email ou mot de passe incorrect !",
-    };
-  }
-
-  if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email
-    );
-
-    await sendVerificationEmail(
-      verificationToken.email,
-      verificationToken.token
-    );
-
-    return {
-      warning: "Email non vérifié, un email de confirmation a été envoyé",
     };
   }
 
