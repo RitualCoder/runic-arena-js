@@ -3,7 +3,6 @@
 import * as z from "zod";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { generateVerificationToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
 import { LoginSchema } from "@/schemas/auth";
 
