@@ -97,7 +97,7 @@ const CardsPage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col items-center z-10 relative overflow-hidden">
+    <div className="h-dvh flex flex-col items-center z-10 relative overflow-hidden">
       {/* Fond jaune */}
       <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
 

@@ -150,6 +150,8 @@
 }
 
 .glare {
+  will-change: transform, opacity;
+  
   opacity: var(--op);
   transform: translateZ(1px);
 
@@ -165,6 +167,8 @@
 
 .basic-holo {
   --space: 1.5%;
+
+  will-change: transform, opacity;
 
   opacity: var(--op);
 
@@ -287,6 +291,8 @@
   --angle: 133deg;
   --imgsize: 500px;
 
+  will-change: transform, opacity;
+
   opacity: var(--op);
 
   background-image: var(--grain),
@@ -329,6 +335,8 @@
 .rare-holo::after {
   content: "";
 
+  will-change: transform, opacity;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -347,6 +355,8 @@
 .gold::after {
   --angle: 110deg;
   --imgsize: 250px;
+
+  will-change: transform, opacity;
 
   opacity: var(--op);
 
@@ -373,6 +383,8 @@
 
 .gold::after {
   content: "";
+
+  will-change: transform, opacity;
 
   position: absolute;
   top: 0;
