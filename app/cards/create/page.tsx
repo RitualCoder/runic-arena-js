@@ -32,13 +32,14 @@ interface FieldErrors {
 
 const defaultAttack = {
   name: "Nouvelle attaque",
-  damage: 10,
+  damage: "10",
   description: "Description par défaut",
   cost: 1,
 };
 
 const CreateCardPage: React.FC = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [card, setCard] = useState<Card>({
     title: "Runic",
@@ -101,7 +102,7 @@ const CreateCardPage: React.FC = () => {
   ) => {
     const newAttacks = [...card.attacks];
     if (!newAttacks[index]) {
-      newAttacks[index] = { name: "", damage: 0, description: "", cost: 0 };
+      newAttacks[index] = { name: "", damage: "0", description: "", cost: 0 };
     }
     newAttacks[index] = { ...newAttacks[index], [field]: value };
     updateField("attacks", newAttacks);
@@ -201,8 +202,12 @@ const CreateCardPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       // Si un fichier est sélectionné, on l'upload d'abord
@@ -215,6 +220,7 @@ const CreateCardPage: React.FC = () => {
         });
         if (uploadError) {
           setError(uploadError);
+          setLoading(false);
           return;
         }
         uploadedImageUrl = imageUrl;
@@ -227,6 +233,7 @@ const CreateCardPage: React.FC = () => {
     } catch (error) {
       console.error("Error creating card", error);
       setError("Erreur lors de la création de la carte.");
+      setLoading(false);
     }
   };
 
@@ -528,8 +535,13 @@ const CreateCardPage: React.FC = () => {
             )}
 
             {/* Bouton de validation */}
-            <Button type="submit" className="w-full my-4">
-              Créer ma carte
+            <Button
+              type="submit"
+              className="w-full my-4"
+              loading={loading}
+              disabled={loading}
+            >
+              {loading ? "Création en cours..." : "Créer ma carte"}
             </Button>
           </form>
         </div>

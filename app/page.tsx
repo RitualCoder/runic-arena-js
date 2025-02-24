@@ -116,7 +116,7 @@ const Home: React.FC = () => {
                 </h3>
               </div>
               <Link
-                href={session ? "/card/create" : "/login"}
+                href={session ? "/cards/create" : "/login"}
                 className="w-fit"
               >
                 <Button variant="primary" size="small">

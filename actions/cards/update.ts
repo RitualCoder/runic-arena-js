@@ -35,7 +35,7 @@ export const updateCard = async (values: Card) => {
         deleteMany: {},
         create: attacks.map((attack) => ({
           name: attack.name,
-          damage: attack.damage || 0,
+          damage: parseInt(attack.damage) || 0,
           cost: attack.cost,
           description: attack.description,
         })),

@@ -40,13 +40,13 @@ export const showcaseCard: Card = {
   attacks: [
     {
       name: "Éclair",
-      damage: 50,
+      damage: "50",
       description: "Inflige 50 points de dégâts à l’adversaire.",
       cost: 2,
     },
     {
       name: "Tonnerre",
-      damage: 100,
+      damage: "100",
       description:
         "Inflige 100 points de dégâts et peut paralyser l’adversaire.",
       cost: 4,

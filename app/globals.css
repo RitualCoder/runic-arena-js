@@ -74,16 +74,33 @@
     );
   }
 
+  /* Hover effect: slightly darker background */
+  .cta-button:hover {
+    @apply bg-secondaryDark;
+  }
+
   .cta-button--delete {
     @apply bg-red-500;
+  }
+
+  .cta-button--delete:hover {
+    @apply bg-red-600;
   }
 
   .cta-button--add {
     @apply bg-green-500;
   }
 
+  .cta-button--add:hover {
+    @apply bg-green-600;
+  }
+
   .cta-button--loading {
     @apply bg-gray-500;
+  }
+
+  .cta-button--loading:hover {
+    @apply bg-gray-600;
   }
 
   .card {
@@ -113,6 +130,7 @@
 
   --primary-color: #f6cf07;
   --secondary-color: #225496;
+  --secondary-dark-color: #1c4171;
 
   --red: #f80e7b;
   --yel: #eedf10;

@@ -22,6 +22,7 @@ export default {
       colors: {
         primary: "var(--primary-color)",
         secondary: "var(--secondary-color)",
+        secondaryDark: "var(--secondary-dark-color)",
       },
     },
   },

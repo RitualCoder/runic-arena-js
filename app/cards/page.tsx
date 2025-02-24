@@ -95,13 +95,13 @@ const CardsPage: React.FC = () => {
   }
 
   return (
-    <div className="h-dvh flex flex-col items-center z-10 relative overflow-hidden">
+    <div className="h-full flex flex-col items-center z-10 relative overflow-hidden">
       {/* Fond jaune */}
       <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
 
       {/* Contenu principal */}
       <div className="flex items-center w-full h-full p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px] min-w-[400px]">
-        <div className="flex flex-wrap pt-8 justify-center gap-16 w-full h-full border-[10px] rounded-[30px] border-primary bg-white overflow-y-auto no-scrollbar">
+        <div className="flex flex-wrap pt-8 justify-center gap-0 md:gap-16 w-full h-full border-[10px] rounded-[30px] border-primary bg-white overflow-y-auto no-scrollbar">
           {cards.map((card) => (
             <div
               key={card.id}

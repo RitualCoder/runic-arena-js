@@ -3,7 +3,6 @@
 import { Card } from "@/types/card";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
-import { parse } from "path";
 
 export const createCard = async (values: Card) => {
   const session = await auth();
@@ -32,7 +31,7 @@ export const createCard = async (values: Card) => {
       attacks: {
         create: attacks.map((attack) => ({
           name: attack.name,
-          damage: attack.damage || 0,
+          damage: parseInt(attack.damage) || 0,
           cost: attack.cost,
           description: attack.description,
         })),

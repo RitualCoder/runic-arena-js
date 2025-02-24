@@ -1,7 +1,7 @@
 // types/card.ts
 export interface Attack {
   name: string;
-  damage: number;
+  damage: string;
   description: string;
   cost: number;
 }
