@@ -62,13 +62,15 @@ const Home: React.FC = () => {
                 </div>
                 {/* Boutons réseaux */}
                 <div className="flex justify-start space-x-2 mt-6">
-                  <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary flex justify-center items-center">
-                    <img
-                      src="/assets/icons/socials/github.svg"
-                      alt="github"
-                      className="w-6 h-6 sm:w-8 sm:h-8"
-                    />
-                  </button>
+                  <Link href="https://github.com/RitualCoder">
+                    <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary flex justify-center items-center">
+                      <img
+                        src="/assets/icons/socials/github.svg"
+                        alt="github"
+                        className="w-6 h-6 sm:w-8 sm:h-8"
+                      />
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
