@@ -8,7 +8,7 @@ export const createCard = async (values: Card) => {
   const session = await auth();
 
   if (!session?.user || !session?.user?.id) {
-    throw new Error("Non autorisé");
+    return { error: "Aucune session trouvée" };
   }
 
   const userId = session.user.id;

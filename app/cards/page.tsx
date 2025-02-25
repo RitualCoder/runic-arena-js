@@ -15,6 +15,8 @@ import { Plus } from "lucide-react";
 import { deleteImage } from "@/lib/storage/upload";
 import Loading from "@/components/Templates/Loading";
 import Timeout from "@/components/Templates/Timeout";
+import { Pencil, Share, Trash, Eye } from "lucide-react";
+import Tooltip from "@/components/Tooltip";
 
 const CardsPage: React.FC = () => {
   const { data: session } = useSession();
@@ -95,17 +97,26 @@ const CardsPage: React.FC = () => {
   }
 
   return (
-    <div className="h-dvh flex flex-col items-center z-10 relative overflow-hidden">
+    <div className="h-screen flex flex-col items-center z-10 relative overflow-hidden">
       {/* Fond jaune */}
       <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
 
       {/* Contenu principal */}
-      <div className="flex items-center w-full h-full p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px] min-w-[400px]">
-        <div className="flex flex-wrap pt-8 justify-center gap-0 md:gap-16 w-full h-full border-[10px] rounded-[30px] border-primary bg-white overflow-y-auto no-scrollbar">
+      <div className="flex w-full h-full p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px] min-w-[400px]">
+        <div className="flex flex-wrap pt-8 justify-center md:gap-16 w-full max-h-[calc(100vh-72px)] md:max-h-[calc(100vh-112px)] border-[10px] rounded-[30px] border-primary bg-white overflow-y-auto no-scrollbar">
+          {cards.length > 0 && (
+            <div className="flex h-fit justify-between items-center w-full px-10">
+              <h1 className="text-lg md:text-2xl">Mes cartes</h1>
+              <Link href={`/cards/create`}>
+                <Button size="small">Créer une carte</Button>
+              </Link>
+            </div>
+          )}
+
           {cards.map((card) => (
             <div
               key={card.id}
-              className="card-container p-1 block w-[350px] h-[550px] mb-5 scale-75 md:scale-100"
+              className="card-container p-1 block w-[350px] h-[550px] my-[-50px] md:my-[-20px] scale-75 md:scale-100"
             >
               {/* Inclusion dynamique des cartes selon leur rareté */}
               {card.rarity === "COMMON" && <BasicCard card={card} />}
@@ -115,16 +126,29 @@ const CardsPage: React.FC = () => {
 
               {/* Boutons Modifier / Supprimer */}
               <div className="flex justify-center mt-4 gap-5">
-                <Link href={`/cards/edit/${card.id}`}>
-                  <Button size="small">Modifier</Button>
+                <Link href={`/cards/${card.id}`}>
+                  <Tooltip content="Voir" placement="top">
+                    <Button size="small" startIcon={<Eye />} />
+                  </Tooltip>
                 </Link>
-                <Button
-                  onClick={() => openModal(card.id, card.imageUrl)}
-                  variant="danger"
-                  size="small"
-                >
-                  Supprimer
-                </Button>
+                <Link href={`/cards/edit/${card.id}`}>
+                  <Tooltip content="Modifier" placement="top">
+                    <Button size="small" startIcon={<Pencil />} />
+                  </Tooltip>
+                </Link>
+                <Link href={`/cards/edit/${card.id}`}>
+                  <Tooltip content="Partager" placement="top">
+                    <Button size="small" startIcon={<Share />} />
+                  </Tooltip>
+                </Link>
+                <Tooltip content="Supprimer" placement="top">
+                  <Button
+                    onClick={() => openModal(card.id, card.imageUrl)}
+                    variant="danger"
+                    size="small"
+                    startIcon={<Trash />}
+                  />
+                </Tooltip>
               </div>
             </div>
           ))}

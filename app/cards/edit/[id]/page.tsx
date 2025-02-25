@@ -72,7 +72,10 @@ const EditCardPage: React.FC = () => {
           pv: card.pv.toString(),
           imageUrl: card.imageUrl,
           description: card.description,
-          attacks: card.attacks,
+          attacks: card.attacks.map((attack) => ({
+            ...attack,
+            damage: attack.damage.toString(),
+          })),
         });
       }
     }

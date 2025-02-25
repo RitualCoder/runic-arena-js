@@ -45,7 +45,7 @@ const DesktopNavbar: React.FC = () => {
             </Button>
           </>
         ) : (
-          <Link href="/login">
+          <Link href="/auth/login">
             <Button size="small">Se connecter</Button>
           </Link>
         )}

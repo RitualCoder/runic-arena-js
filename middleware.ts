@@ -15,7 +15,16 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isPublicRoute = publicRoutes.some((route) => {
+    // Si la route contient un segment dynamique, on construit un pattern
+    if (route.includes("[id]")) {
+      const regexPattern = new RegExp(
+        "^" + route.replace("[id]", "[^/]+") + "$"
+      );
+      return regexPattern.test(nextUrl.pathname);
+    }
+    return route === nextUrl.pathname;
+  });
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
