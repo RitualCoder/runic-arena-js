@@ -80,7 +80,21 @@ const Page: React.FC<PageProps> = ({ params }) => {
   return (
     <div className="h-screen flex flex-col items-center z-10 relative overflow-hidden">
       {/* Fond jaune */}
-      <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
+      <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0" />
+
+      {/* Points blanc */}
+      <img
+        src="/assets/forms/whiteDots.png"
+        alt="points blanc"
+        className="absolute top-[15%] left-[60%] sm:left-[50%] h-[120px] sm:h-[150px] z-0"
+      />
+
+      {/* Rond jaune */}
+      <img
+        src="/assets/forms/yellowRound.png"
+        alt="yellowRound"
+        className="absolute top-[70%] left-[-10%] h-[150px] -rotate-6 z-0"
+      />
 
       {/* Contenu principal */}
       <div className="flex flex-col w-full h-dvh p-2 !pt-0 md:p-10 relative z-10 mt-[80px] md:mt-[90px] min-w-[400px] items-center">
