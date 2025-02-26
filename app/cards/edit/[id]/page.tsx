@@ -531,16 +531,18 @@ const EditCardPage: React.FC = () => {
                       Coût
                     </label>
                     <input
-                      id={`attack-cost-${index}`}
-                      type="number"
+                      type="text"
                       value={attack.cost}
-                      min={0}
-                      max={4}
                       onChange={(e) => {
-                        let value = Number(e.target.value);
-                        if (value > 4) value = 4;
-                        if (value < 0) value = 0;
-                        handleAttackChange(index, "cost", value);
+                        let value = e.target.value.replace(/\D/g, "");
+
+                        // Vérification et limitation des valeurs entre 0 et 4
+                        let numValue =
+                          value !== ""
+                            ? Math.max(0, Math.min(4, Number(value)))
+                            : "";
+
+                        handleAttackChange(index, "cost", numValue);
                       }}
                       className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />

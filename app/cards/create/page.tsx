@@ -384,7 +384,6 @@ const CreateCardPage: React.FC = () => {
                 Description
               </label>
               <textarea
-                id="description"
                 name="description"
                 value={card.description}
                 onChange={handleInputChange}
@@ -420,7 +419,6 @@ const CreateCardPage: React.FC = () => {
                       Titre de l'attaque
                     </label>
                     <input
-                      id={`attack-title-${index}`}
                       value={attack.name}
                       onChange={(e) =>
                         handleAttackChange(index, "name", e.target.value)
@@ -438,7 +436,6 @@ const CreateCardPage: React.FC = () => {
                       Puissance
                     </label>
                     <input
-                      id={`attack-power-${index}`}
                       value={attack.damage}
                       onChange={(e) =>
                         handleAttackChange(index, "damage", e.target.value)
@@ -459,7 +456,6 @@ const CreateCardPage: React.FC = () => {
                       Description
                     </label>
                     <input
-                      id={`attack-description-${index}`}
                       value={attack.description}
                       onChange={(e) =>
                         handleAttackChange(index, "description", e.target.value)
@@ -477,16 +473,18 @@ const CreateCardPage: React.FC = () => {
                       Coût
                     </label>
                     <input
-                      id={`attack-cost-${index}`}
-                      type="number"
+                      type="text"
                       value={attack.cost}
-                      min={0}
-                      max={4}
                       onChange={(e) => {
-                        let value = Number(e.target.value);
-                        if (value > 4) value = 4;
-                        if (value < 0) value = 0;
-                        handleAttackChange(index, "cost", value);
+                        let value = e.target.value.replace(/\D/g, "");
+
+                        // Vérification et limitation des valeurs entre 0 et 4
+                        let numValue =
+                          value !== ""
+                            ? Math.max(0, Math.min(4, Number(value)))
+                            : "";
+
+                        handleAttackChange(index, "cost", numValue);
                       }}
                       className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
