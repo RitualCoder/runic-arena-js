@@ -16,7 +16,7 @@ const GoldCard: React.FC<GoldCardProps> = ({ card, display = true }) => {
   const handleClick = (e: React.MouseEvent) => {
     if (window.innerWidth < 768) return;
     e.stopPropagation();
-    setExpanded((prev) => !prev);
+    // setExpanded((prev) => !prev);
   };
 
   const cardTypeLower = card.type.toLowerCase();

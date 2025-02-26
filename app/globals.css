@@ -111,7 +111,7 @@
   }
 
   .card.expanded {
-    @apply fixed z-40 h-auto w-[342px] top-1/2 left-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 scale-125;
+    @apply fixed z-50 h-auto w-[342px] top-1/2 left-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 scale-125;
   }
 
   .card-content {
