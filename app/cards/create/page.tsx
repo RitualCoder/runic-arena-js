@@ -82,16 +82,9 @@ const CreateCardPage: React.FC = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : undefined;
     if (file) {
-      if (file.size > 1024 * 1024) {
-        setFieldErrors((prev) => ({
-          ...prev,
-          imageUrl: "L'image ne doit pas dépasser 1 Mo.",
-        }));
-      } else {
-        setFieldErrors((prev) => ({ ...prev, imageUrl: "" }));
-        setFile(file);
-        updateField("imageUrl", URL.createObjectURL(file));
-      }
+      setFieldErrors((prev) => ({ ...prev, imageUrl: "" }));
+      setFile(file);
+      updateField("imageUrl", URL.createObjectURL(file));
     }
   };
 
