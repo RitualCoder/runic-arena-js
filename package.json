@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.48.1",
     "bcryptjs": "^3.0.2",
     "browser-image-compression": "^2.0.2",
+    "dom-to-image": "^2.6.0",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "next-auth": "^5.0.0-beta.25",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/dom-to-image": "^2.6.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

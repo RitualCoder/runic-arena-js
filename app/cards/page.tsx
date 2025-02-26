@@ -102,7 +102,7 @@ const CardsPage: React.FC = () => {
       <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
 
       {/* Contenu principal */}
-      <div className="flex w-full h-full p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px] min-w-[400px]">
+      <div className="flex w-full h-dvh p-2 !pt-0 md:p-10 relative z-10 mt-[64px] md:mt-[73px] min-w-[400px]">
         <div className="flex flex-wrap pt-8 justify-center md:gap-16 w-full max-h-[calc(100vh-72px)] md:max-h-[calc(100vh-112px)] border-[10px] rounded-[30px] border-primary bg-white overflow-y-auto no-scrollbar">
           {cards.length > 0 && (
             <div className="flex h-fit justify-between items-center w-full px-10">

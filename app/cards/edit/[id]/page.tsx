@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import BasicCard from "@/components/Cards/CommonCard";
 import Button from "@/components/Buttons/Button";
 import { Card } from "@/types/card";
-import { Trash2, Grab } from "lucide-react";
+import { Trash2, Plus } from "lucide-react";
 import HolographicCard from "@/components/Cards/HolographicCard";
 import VCard from "@/components/Cards/VCard";
 import GoldCard from "@/components/Cards/GoldCard";
@@ -12,7 +12,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { deleteImage, uploadImage } from "@/lib/storage/upload";
 import { getCardById } from "@/data/cards";
 import { updateCard } from "@/actions/cards/update";
-import { set } from "zod";
+import Loading from "@/components/Templates/Loading";
+import Tooltip from "@/components/Tooltip";
 
 interface AttackErrors {
   name?: string;
@@ -33,7 +34,7 @@ interface FieldErrors {
 
 const defaultAttack = {
   name: "Nouvelle attaque",
-  damage: 10,
+  damage: "10",
   description: "Description par défaut",
   cost: 1,
 };
@@ -44,6 +45,7 @@ const EditCardPage: React.FC = () => {
   const CardId = pathname.split("/")[3];
 
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
 
   const [card, setCard] = useState<Card>({
     title: "Runic",
@@ -77,6 +79,7 @@ const EditCardPage: React.FC = () => {
             damage: attack.damage.toString(),
           })),
         });
+        setFetching(false);
       }
     }
 
@@ -127,7 +130,7 @@ const EditCardPage: React.FC = () => {
   ) => {
     const newAttacks = [...card.attacks];
     if (!newAttacks[index]) {
-      newAttacks[index] = { name: "", damage: 0, description: "", cost: 0 };
+      newAttacks[index] = { name: "", damage: "0", description: "", cost: 0 };
     }
     newAttacks[index] = { ...newAttacks[index], [field]: value };
     updateField("attacks", newAttacks);
@@ -270,6 +273,10 @@ const EditCardPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  if (fetching) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex flex-col h-fit md:h-[100vh] w-full relative overflow-hidden">
@@ -450,14 +457,16 @@ const EditCardPage: React.FC = () => {
                 <div key={index} className="mb-4 flex flex-col gap-4">
                   <div className="flex justify-between items-center">
                     <h2 className="text-xl font-bold">Attaque {index + 1}</h2>
-                    <Button
-                      type="button"
-                      onClick={() => removeAttack(index)}
-                      size="small"
-                      variant="danger"
-                    >
-                      <Trash2 size={14} />
-                    </Button>
+                    <Tooltip content="Supprimer">
+                      <Button
+                        type="button"
+                        onClick={() => removeAttack(index)}
+                        size="small"
+                        variant="danger"
+                      >
+                        <Trash2 size={14} />
+                      </Button>
+                    </Tooltip>
                   </div>
 
                   <div>
@@ -547,13 +556,12 @@ const EditCardPage: React.FC = () => {
               {card.attacks.length < 2 && (
                 <div className="flex justify-center w-full my-2">
                   <Button
-                    className="flex gap-2"
                     onClick={addAttack}
                     variant="secondary"
                     size="small"
                     type="button"
+                    startIcon={<Plus />}
                   >
-                    <Grab />
                     Ajouter une attaque
                   </Button>
                 </div>

@@ -31,11 +31,11 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="relative h-[200vh] overflow-hidden">
+      <div className="relative h-dvh overflow-hidden">
         {/* Carré jaune (fond) */}
         <div className="absolute -top-[30%] left-[50%] h-[500vh] w-full bg-primary rotate-12 z-[-1]"></div>
 
-        {/* Page 1 DESKTOP*/}
+        {/* Page 1 DESKTOP */}
         <section className="hidden page-section h-dvh md:flex flex-col items-center relative pt-[63px] md:pt-[73px]">
           <div className="w-full h-full flex flex-col md:flex-row justify-center px-10 sm:px-12 md:px-20 pb-10 z-10">
             <div className="w-full h-full md:w-2/3 flex flex-col justify-start items-center relative">
@@ -55,9 +55,9 @@ const Home: React.FC = () => {
                     href={session ? "/card/create" : "/login"}
                     className="w-fit"
                   >
-                    <button className="cta-button text-xl sm:text-2xl w-full sm:w-auto">
-                      Créer <span className="text-primary">ma carte</span>
-                    </button>
+                    <Button size="large" variant="primary">
+                      Créer <span className="text-primary ml-1">ma carte</span>
+                    </Button>
                   </Link>
                 </div>
                 {/* Boutons réseaux */}
@@ -122,7 +122,7 @@ const Home: React.FC = () => {
                 className="w-fit"
               >
                 <Button variant="primary" size="small">
-                  Créer <span className="text-primary">ma carte</span>
+                  Créer <span className="text-primary ml-1">ma carte</span>
                 </Button>
               </Link>
             </div>
@@ -153,35 +153,6 @@ const Home: React.FC = () => {
             alt="points blanc"
             className="absolute bottom-[5%] left-[60%] sm:left-[50%] h-[120px] sm:h-[150px] z-0"
           />
-        </section>
-
-        {/* Page 2 */}
-        <section className="page-section h-screen flex flex-col items-center relative p-5 md:p-10">
-          <div className="flex flex-col items-center bg-white border-[10px] rounded-[30px] border-primary w-full h-full md:p-5 overflow-x-hidden">
-            <h3 className="text-2xl md:text-4xl font-Kanit font-medium p-5 md:p-0">
-              Les dernières créations
-            </h3>
-            <div className="flex flex-wrap justify-center items-center gap-16 w-full h-full overflow-y-auto p-10 py-5">
-              {threeLastCards.map((card, index) => (
-                <div
-                  key={index}
-                  className="card-container p-1 block w-[350px] h-auto"
-                >
-                  {card.rarity === "COMMON" && <BasicCard card={card} />}
-                  {card.rarity === "HOLOGRAPHIC" && (
-                    <HolographicCard card={card} />
-                  )}
-                  {card.rarity === "GOLD" && <GoldCard card={card} />}
-                  {card.rarity === "V" && <VCard card={card} />}
-                </div>
-              ))}
-            </div>
-            <img
-              src="/assets/forms/yellowRound.png"
-              alt="yellowRound"
-              className="absolute top-2 left-2 h-[200px] -rotate-6 z-[-1]"
-            />
-          </div>
         </section>
       </div>
     </>

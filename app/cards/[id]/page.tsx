@@ -6,20 +6,19 @@ import HolographicCard from "@/components/Cards/HolographicCard";
 import VCard from "@/components/Cards/VCard";
 import Loading from "@/components/Templates/Loading";
 import Timeout from "@/components/Templates/Timeout";
-import { getCardById } from "@/data/cards";
-import { Card } from "@/types/card";
+import { ApiCard, getCardById } from "@/data/cards";
 import React, { useEffect, useState } from "react";
+import { CloudDownload } from "lucide-react";
+import Button from "@/components/Buttons/Button";
+import domtoimage from "dom-to-image";
 
 interface PageProps {
-  // Note : params est maintenant une Promise
   params: Promise<{ id: string }>;
 }
 
 const Page: React.FC<PageProps> = ({ params }) => {
-  // Déballer la promise avec React.use()
   const { id } = React.use(params);
-
-  const [card, setCard] = useState<Card | null>(null);
+  const [card, setCard] = useState<ApiCard | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -32,19 +31,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
           setError("Carte non trouvée");
           return;
         }
-        setCard({
-          ...card,
-          title: card.title,
-          type: card.type,
-          rarity: card.rarity,
-          pv: card.pv.toString(),
-          imageUrl: card.imageUrl,
-          description: card.description,
-          attacks: card.attacks.map((attack) => ({
-            ...attack,
-            damage: attack.damage.toString(),
-          })),
-        });
+        setCard(card);
       } catch (err) {
         console.error(err);
         setError("Erreur lors du chargement de la carte");
@@ -52,22 +39,69 @@ const Page: React.FC<PageProps> = ({ params }) => {
         setLoading(false);
       }
     }
-
     fetchCard();
   }, [id]);
+
+  // Fonction pour capturer et télécharger l'image de la carte
+  const downloadCardAsImage = async () => {
+    const cardElement = document.getElementById("download-card");
+    if (!cardElement) {
+      console.error("Élément non trouvé !");
+      return;
+    }
+
+    const scale = 2;
+
+    try {
+      const blob = await domtoimage.toBlob(cardElement, {
+        width: cardElement.clientWidth * scale,
+        height: cardElement.clientHeight * scale,
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        },
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `carte-${card?.id || "download"}.png`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Erreur lors de la capture de l'image :", error);
+    }
+  };
 
   if (loading) return <Loading />;
   if (error || !card) return <Timeout />;
 
   return (
-    <div className="p-4 h-dvh w-full flex justify-center items-center">
-      <div
-        className="card-container p-1 block w-[350px] h-[550px] my-[-50px] md:my-[-20px] scale-75 md:scale-100"
-      >
-        {card.rarity === "COMMON" && <BasicCard card={card} />}
-        {card.rarity === "HOLOGRAPHIC" && <HolographicCard card={card} />}
-        {card.rarity === "GOLD" && <GoldCard card={card} />}
-        {card.rarity === "V" && <VCard card={card} />}
+    <div className="h-screen flex flex-col items-center z-10 relative overflow-hidden">
+      {/* Fond jaune */}
+      <div className="absolute -top-[30%] left-[50%] h-[155%] w-[90%] bg-primary rotate-12 z-0"></div>
+
+      {/* Contenu principal */}
+      <div className="flex flex-col w-full h-dvh p-2 !pt-0 md:p-10 relative z-10 mt-[80px] md:mt-[90px] min-w-[400px] items-center">
+        <div
+          id="download-card"
+          className="card-container p-1 block w-[350px] h-fit scale-75 md:scale-100"
+        >
+          {card.rarity === "COMMON" && <BasicCard card={card} />}
+          {card.rarity === "HOLOGRAPHIC" && <HolographicCard card={card} />}
+          {card.rarity === "GOLD" && <GoldCard card={card} />}
+          {card.rarity === "V" && <VCard card={card} />}
+        </div>
+        <div className="flex flex-col items-center gap-2 w-[300px] md:w-[350px] h-auto md:mt-6 bg-white border-solid border-primary border-4 rounded-lg p-4">
+          🎨 Créateur : {card.user.name}
+          <Button
+            size="small"
+            startIcon={<CloudDownload />}
+            onClick={downloadCardAsImage}
+          >
+            Télécharger
+          </Button>
+        </div>
       </div>
     </div>
   );

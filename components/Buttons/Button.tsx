@@ -19,39 +19,42 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   ...props
 }) => {
-  // Classe de base pour le bouton
+  const isIconOnly = !children;
+
   let baseClasses = "cta-button";
 
-  // Gestion des tailles
   const sizeClasses = {
     small: "py-2 px-4 text-sm",
     medium: "py-3 px-6 text-base",
-    large: "py-4 px-8 text-lg",
+    large: "py-4 px-8 text-xl",
   };
-  baseClasses += ` ${sizeClasses[size]}`;
 
-  // Gestion des variantes
+  const iconOnlyClasses = {
+    small: "p-2",
+    medium: "p-3",
+    large: "p-4",
+  };
+
+  baseClasses += ` ${isIconOnly ? iconOnlyClasses[size] : sizeClasses[size]}`;
+
   if (variant === "secondary") {
     baseClasses += " cta-button--add";
   } else if (variant === "danger") {
     baseClasses += " cta-button--delete";
   }
 
-  // Gestion du loading
   if (loading) {
     baseClasses += " cta-button--loading";
   }
 
-  // Ajout de classes additionnelles éventuelles
   if (className) {
     baseClasses += ` ${className}`;
   }
 
-  // Définition d'une taille par défaut pour l'icône en fonction de la taille du bouton
   const defaultIconSizes = {
-    small: "w-4 h-4",
-    medium: "w-5 h-5",
-    large: "w-6 h-6",
+    small: "w-5 h-5",
+    medium: "w-6 h-6",
+    large: "w-7 h-7",
   };
 
   return (
@@ -62,7 +65,9 @@ const Button: React.FC<ButtonProps> = ({
     >
       {startIcon && (
         <span
-          className={`${children && "mr-2"} inline-flex items-center ${defaultIconSizes[size]} ${iconClassName}`}
+          className={`${children ? "mr-2" : ""} inline-flex items-center ${
+            defaultIconSizes[size]
+          } ${iconClassName}`}
         >
           {startIcon}
         </span>

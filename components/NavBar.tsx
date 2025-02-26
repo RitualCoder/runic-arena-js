@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
 import { Menu, X } from "lucide-react";
 import Button from "./Buttons/Button";
 
@@ -27,22 +26,17 @@ const DesktopNavbar: React.FC = () => {
       <div className="flex gap-4">
         {session?.user ? (
           <>
-            {pathname === "/cards" ? (
-              <Link href="/cards/create">
-                <Button variant="primary" size="small">
-                  Créer une carte
-                </Button>
-              </Link>
-            ) : (
+            {pathname !== "/cards" && (
               <Link href="/cards">
                 <Button variant="primary" size="small">
                   Mes cartes
                 </Button>
               </Link>
             )}
-            <Button size="small" onClick={() => signOut()}>
-              Se déconnecter
-            </Button>
+
+            <Link href="/account">
+              <Button size="small">Mon compte</Button>
+            </Link>
           </>
         ) : (
           <Link href="/auth/login">
@@ -61,7 +55,7 @@ const MobileNavbar: React.FC = () => {
 
   return (
     <div
-      className={`md:hidden absolute top-0 left-0 w-full z-50 ${
+      className={`md:hidden absolute top-0 left-0 w-full z-30 ${
         isOpen ? "bg-white" : ""
       }`}
     >
@@ -84,25 +78,17 @@ const MobileNavbar: React.FC = () => {
       {/* Menu mobile qui slide in */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full bg-white/90 backdrop-blur-sm shadow-lg flex flex-col items-center gap-4 py-6 animate-slideIn">
-          {" "}
           {session?.user ? (
             <>
-              {pathname === "/cards" ? (
-                <Link href="/cards/create" onClick={() => setIsOpen(false)}>
-                  <Button variant="primary" size="small">
-                    Créer une carte
-                  </Button>
-                </Link>
-              ) : (
-                <Link href="/cards" onClick={() => setIsOpen(false)}>
-                  <Button variant="primary" size="small">
-                    Mes cartes
-                  </Button>
-                </Link>
-              )}
-              <Button size="small" onClick={() => signOut()}>
-                Se déconnecter
-              </Button>
+              <Link href="/cards" onClick={() => setIsOpen(false)}>
+                <Button variant="primary" size="small">
+                  Mes cartes
+                </Button>
+              </Link>
+
+              <Link href={"/account"} onClick={() => setIsOpen(false)}>
+                <Button size="small">Mon Compte</Button>
+              </Link>
             </>
           ) : (
             <Link href="/login" onClick={() => setIsOpen(false)}>

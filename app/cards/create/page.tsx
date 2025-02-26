@@ -1,11 +1,10 @@
 "use client";
 
 import React, { ChangeEvent, useState } from "react";
-import Navbar from "@/components/NavBar";
 import BasicCard from "@/components/Cards/CommonCard";
 import Button from "@/components/Buttons/Button";
 import { Card } from "@/types/card";
-import { Trash2, Grab } from "lucide-react";
+import { Trash2, Plus } from "lucide-react";
 import HolographicCard from "@/components/Cards/HolographicCard";
 import VCard from "@/components/Cards/VCard";
 import GoldCard from "@/components/Cards/GoldCard";
@@ -509,7 +508,7 @@ const CreateCardPage: React.FC = () => {
                     size="small"
                     type="button"
                   >
-                    <Grab />
+                    <Plus />
                     Ajouter une attaque
                   </Button>
                 </div>

@@ -1,13 +1,9 @@
 import React from "react";
 
 interface TooltipProps {
-  /** Contenu à afficher dans le tooltip */
   content: React.ReactNode;
-  /** Position du tooltip par rapport à l'élément déclencheur */
   placement?: "top" | "right" | "bottom" | "left";
-  /** Élément déclencheur sur lequel le tooltip sera affiché au survol */
   children: React.ReactNode;
-  /** Classes additionnelles pour le conteneur du tooltip */
   className?: string;
 }
 
@@ -41,7 +37,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       {children}
       <div
         role="tooltip"
-        className={`absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-xs opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-gray-700 ${positionClasses} ${className}`}
+        className={`tooltip absolute z-50 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-600 rounded-lg shadow-xs opacity-0 group-hover:visible group-hover:opacity-100 dark:bg-gray-700 ${positionClasses} ${className}`}
       >
         {content}
       </div>

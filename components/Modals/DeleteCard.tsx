@@ -22,7 +22,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-2xl p-6 w-[400px] shadow-xl border-4 border-primary">
+      <div className="bg-white rounded-2xl p-6 w-[400px] max-w-[90%] mx-4 shadow-xl border-4 border-primary">
         <h2 className="text-xl font-bold text-gray-900 text-center">
           Confirmation
         </h2>

@@ -33,8 +33,15 @@ export const getCardById = async (id: string) => {
     },
     include: {
       attacks: true,
+      user: {
+        select: {
+          name: true,
+        },
+      },
     },
   });
 
   return card;
 };
+
+export type ApiCard = Awaited<ReturnType<typeof getCardById>>;

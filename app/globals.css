@@ -167,6 +167,13 @@
   paint-order: stroke fill;
 }
 
+@media (hover: none) {
+  .group:hover .tooltip {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
 .glare {
   will-change: transform, opacity;
 
