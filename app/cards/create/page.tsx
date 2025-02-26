@@ -161,10 +161,6 @@ const CreateCardPage: React.FC = () => {
       errors.description = "La description est obligatoire.";
       isValid = false;
     }
-    if (file && file.size > 1024 * 1024) {
-      errors.imageUrl = "L'image ne doit pas dépasser 1 Mo.";
-      isValid = false;
-    }
 
     // Validation des attaques (s'il y en a)
     errors.attacks = card.attacks.map((attack) => {
