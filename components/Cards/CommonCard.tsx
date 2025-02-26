@@ -39,8 +39,8 @@ const BasicCard: React.FC<BasicCardProps> = ({ card, display = true }) => {
           className="card-type relative z-10 w-full h-auto user-drag-none"
         />
 
-        {/* Titre de la carte */}
-        <p className="card-name absolute font-GillSans font-sem z-20 top-[11px] left-[68px] text-[23px]">
+        {/* Nom de la carte */}
+        <p className="absolute w-[155px] overflow-hidden font-GillSans font-sem z-20 top-[11px] left-[68px] text-[23px]">
           {card.title}
         </p>
 
@@ -81,14 +81,12 @@ const BasicCard: React.FC<BasicCardProps> = ({ card, display = true }) => {
                         />
                       ))}
                   </div>
-                  <p
-                    className={`font-GillSans font-sem text-[18px] leading-[18px]`}
-                  >
+                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] text-stroke whitespace-nowrap">
                     {attack.name}
                   </p>
                 </div>
                 <p
-                  className={`font-GillSans font-semibold text-[17px] leading-[18px] tracking-tighter`}
+                  className={`font-GillSans font-semibold text-[18px] leading-[25px] tracking-tighter`}
                 >
                   {attack.damage}
                 </p>

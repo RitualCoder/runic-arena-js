@@ -43,7 +43,7 @@ const GoldCard: React.FC<GoldCardProps> = ({ card, display = true }) => {
         />
 
         {/* Nom de la carte */}
-        <div className="absolute flex items-center font-GillSans font-sem z-20 top-[14px] left-[68px] text-[23px] h-[30px] text-stroke line">
+        <div className="absolute w-[170px] overflow-hidden flex items-center font-GillSans font-sem z-20 top-[12px] left-[68px] text-[23px] h-[30px] text-stroke line">
           <p className="card-name leading-none">{card.title}</p>
         </div>
 
@@ -101,14 +101,12 @@ const GoldCard: React.FC<GoldCardProps> = ({ card, display = true }) => {
                         </div>
                       ))}
                   </div>
-                  <p
-                    className={`font-GillSans font-sem text-[18px] leading-[18px] text-stroke`}
-                  >
+                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] text-stroke whitespace-nowrap">
                     {attack.name}
                   </p>
                 </div>
                 <p
-                  className={`font-GillSans font-semibold text-[17px] leading-[18px] tracking-tighter text-stroke`}
+                  className={`font-GillSans font-semibold text-[18px] leading-[25px] tracking-tighter text-stroke`}
                 >
                   {attack.damage}
                 </p>

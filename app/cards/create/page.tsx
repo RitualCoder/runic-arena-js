@@ -391,6 +391,7 @@ const CreateCardPage: React.FC = () => {
               <textarea
                 name="description"
                 value={card.description}
+                maxLength={120}
                 onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
@@ -424,7 +425,9 @@ const CreateCardPage: React.FC = () => {
                       Titre de l'attaque
                     </label>
                     <input
+                      id={`attack-title-${index}`}
                       value={attack.name}
+                      maxLength={20}
                       onChange={(e) =>
                         handleAttackChange(index, "name", e.target.value)
                       }
@@ -441,6 +444,7 @@ const CreateCardPage: React.FC = () => {
                       Puissance
                     </label>
                     <input
+                      id={`attack-power-${index}`}
                       value={attack.damage}
                       onChange={(e) =>
                         handleAttackChange(index, "damage", e.target.value)
@@ -461,10 +465,12 @@ const CreateCardPage: React.FC = () => {
                       Description
                     </label>
                     <input
+                      id={`attack-description-${index}`}
                       value={attack.description}
                       onChange={(e) =>
                         handleAttackChange(index, "description", e.target.value)
                       }
+                      maxLength={100}
                       className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                     {fieldErrors.attacks[index]?.description && (
@@ -478,6 +484,7 @@ const CreateCardPage: React.FC = () => {
                       Coût
                     </label>
                     <input
+                      id={`attack-cost-${index}`}
                       type="text"
                       value={attack.cost}
                       onChange={(e) => {

@@ -439,6 +439,7 @@ const EditCardPage: React.FC = () => {
                 id="description"
                 name="description"
                 value={card.description}
+                maxLength={120}
                 onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
@@ -475,6 +476,7 @@ const EditCardPage: React.FC = () => {
                     </label>
                     <input
                       id={`attack-title-${index}`}
+                      maxLength={20}
                       value={attack.name}
                       onChange={(e) =>
                         handleAttackChange(index, "name", e.target.value)
@@ -515,6 +517,7 @@ const EditCardPage: React.FC = () => {
                     <input
                       id={`attack-description-${index}`}
                       value={attack.description}
+                      maxLength={100}
                       onChange={(e) =>
                         handleAttackChange(index, "description", e.target.value)
                       }

@@ -46,7 +46,7 @@ const HolographicCard: React.FC<HolographicCardProps> = ({
         />
 
         {/* Nom de la carte */}
-        <p className="absolute font-GillSans font-sem z-20 top-[11px] left-[68px] text-[23px]">
+        <p className="absolute w-[155px] overflow-hidden font-GillSans font-sem z-20 top-[11px] left-[68px] text-[23px]">
           {card.title}
         </p>
 
@@ -91,14 +91,12 @@ const HolographicCard: React.FC<HolographicCardProps> = ({
                         />
                       ))}
                   </div>
-                  <p
-                    className={`font-GillSans font-sem text-[18px] leading-[18px]`}
-                  >
+                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] text-stroke whitespace-nowrap">
                     {attack.name}
                   </p>
                 </div>
                 <p
-                  className={`font-GillSans font-semibold text-[17px] leading-[18px] tracking-tighter`}
+                  className={`font-GillSans font-semibold text-[18px] leading-[25px] tracking-tighter`}
                 >
                   {attack.damage}
                 </p>
