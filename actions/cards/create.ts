@@ -8,7 +8,7 @@ export const createCard = async (values: Card) => {
   const session = await auth();
 
   if (!session?.user || !session?.user?.id) {
-    return { error: "Aucune session trouvée" };
+    return { error: "Aucune session trouvée. Veuillez-vous connecter." };
   }
 
   const userId = session.user.id;
@@ -39,5 +39,5 @@ export const createCard = async (values: Card) => {
     },
   });
 
-  return createdCard;
+  return { data: createdCard };
 };

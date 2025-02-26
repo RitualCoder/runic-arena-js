@@ -8,7 +8,7 @@ import Loading from "@/components/Templates/Loading";
 import Timeout from "@/components/Templates/Timeout";
 import { ApiCard, getCardById } from "@/data/cards";
 import React, { useEffect, useState } from "react";
-import { CloudDownload } from "lucide-react";
+import { CloudDownload, Share, CopyCheck } from "lucide-react";
 import Button from "@/components/Buttons/Button";
 import domtoimage from "dom-to-image";
 
@@ -21,6 +21,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
   const [card, setCard] = useState<ApiCard | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [copiedUrl, setCopiedUrl] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchCard() {
@@ -94,13 +95,35 @@ const Page: React.FC<PageProps> = ({ params }) => {
         </div>
         <div className="flex flex-col items-center gap-2 w-[300px] md:w-[350px] h-auto md:mt-6 bg-white border-solid border-primary border-4 rounded-lg p-4">
           🎨 Créateur : {card.user.name}
-          <Button
-            size="small"
-            startIcon={<CloudDownload />}
-            onClick={downloadCardAsImage}
-          >
-            Télécharger
-          </Button>
+          <div className="flex w-full justify-center gap-2 mt-2">
+            <Button
+              size="small"
+              startIcon={<CloudDownload />}
+              onClick={downloadCardAsImage}
+            >
+              Télécharger
+            </Button>
+            <Button
+              size="small"
+              startIcon={copiedUrl ? <CopyCheck /> : <Share />}
+              variant={copiedUrl ? "secondary" : "primary"}
+              onClick={() => {
+                if (!copiedUrl) {
+                  navigator.clipboard
+                    .writeText(window.location.href)
+                    .then(() => {
+                      setCopiedUrl(true);
+                      setTimeout(() => setCopiedUrl(false), 3000);
+                    })
+                    .catch((err) =>
+                      console.error("Erreur lors de la copie de l'URL :", err)
+                    );
+                }
+              }}
+            >
+              {copiedUrl ? "Url copié" : "Partager"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

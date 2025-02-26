@@ -216,10 +216,15 @@ const CreateCardPage: React.FC = () => {
 
       const cardToCreate = { ...card, imageUrl: uploadedImageUrl };
 
-      const newCard = await createCard(cardToCreate);
-      router.push("/cards");
+      const response = await createCard(cardToCreate);
+
+      if (!response.error && response.data) {
+        router.push("/cards/" + response.data.id);
+        return;
+      } else {
+        setError(response.error);
+      }
     } catch (error) {
-      console.error("Error creating card", error);
       setError("Erreur lors de la création de la carte.");
       setLoading(false);
     }
