@@ -91,7 +91,7 @@ const HolographicCard: React.FC<HolographicCardProps> = ({
                         />
                       ))}
                   </div>
-                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] text-stroke whitespace-nowrap">
+                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] whitespace-nowrap">
                     {attack.name}
                   </p>
                 </div>

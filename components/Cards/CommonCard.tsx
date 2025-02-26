@@ -81,7 +81,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ card, display = true }) => {
                         />
                       ))}
                   </div>
-                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] text-stroke whitespace-nowrap">
+                  <p className="font-GillSans w-[160px] overflow-x-hidden font-sem text-[18px] leading-[25px] whitespace-nowrap">
                     {attack.name}
                   </p>
                 </div>
