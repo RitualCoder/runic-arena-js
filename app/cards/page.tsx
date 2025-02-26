@@ -136,11 +136,6 @@ const CardsPage: React.FC = () => {
                     <Button size="small" startIcon={<Pencil />} />
                   </Tooltip>
                 </Link>
-                <Link href={`/cards/edit/${card.id}`}>
-                  <Tooltip content="Partager" placement="top">
-                    <Button size="small" startIcon={<Share />} />
-                  </Tooltip>
-                </Link>
                 <Tooltip content="Supprimer" placement="top">
                   <Button
                     onClick={() => openModal(card.id, card.imageUrl)}
