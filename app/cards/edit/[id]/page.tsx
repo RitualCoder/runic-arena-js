@@ -315,7 +315,7 @@ const EditCardPage: React.FC = () => {
 
         {/* Formulaire */}
         <div className="order-2 md:order-1 mt-10 md:mt-0 w-full md:w-2/3 p-4 pl-0 flex flex-col items-center h-auto md:h-[calc(100vh-73px)] overflow-hidden overflow-y-auto">
-          <h1 className="text-3xl font-bold mb-6">Créer votre carte</h1>
+          <h1 className="text-3xl font-bold mb-6">Modifier votre carte</h1>
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-4 w-full px-10 max-w-[800px]"
